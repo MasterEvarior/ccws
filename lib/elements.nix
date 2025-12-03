@@ -1,6 +1,34 @@
 { lib, ... }:
 rec {
 
+  mkPage =
+    {
+      title,
+      lang ? "en",
+      charset ? "UTF-8",
+      content ? "",
+    }:
+    ''
+      <!DOCTYPE html>
+      <html lang="${lang}">
+        <head>
+          <meta charset="${charset}" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          ${mkStylesheetLinks [ ../assets/style.css ]}
+          <title>${title}</title>
+        </head>
+      </html>
+      <body>
+        ${mkHeader title}
+        <main>
+         <div class="link-grid">
+          ${content}
+          </div>
+        </main>
+        ${mkFooter}
+      </body>
+    '';
+
   mkHeader = title: ''
     <header>
       <div class="logo">
@@ -53,5 +81,8 @@ rec {
          </a>
     '';
 
-  mkTag = t: ''<span class="tag">${lib.toLower t}</span>'';
+  mkTag = t: ''<span class="tag" href="tags/${t}.html">${lib.toLower t}</span>'';
+
+  mkStylesheetLinks =
+    stylesheets: lib.concatLines (map (s: ''<style>${builtins.readFile s}</style>'') stylesheets);
 }

@@ -1,33 +1,46 @@
-{ lib, ccws, ... }:
+{
+  pkgs,
+  lib,
+  ccws,
+  ...
+}:
 rec {
-  mkSite =
+
+  mkSite2 = pkgs.linkFarm "website" [
+    {
+      name = "index.html";
+      path = pkgs.writeTextFile {
+        name = "index.html";
+        text = mkIndex {
+          title = "CWS - Cool Coding Websites";
+          cards = import ./../content.nix;
+        };
+      };
+    }
+    {
+      name = "quiz.html";
+      path = pkgs.writeText "quiz.html" (mkTagPage (import ./../content.nix) "quiz");
+    }
+  ];
+
+  mkIndex =
     {
       title,
-      lang ? "en",
-      charset ? "UTF-8",
-      stylesheets ? [ ],
       cards ? [ ],
     }:
-    ''
-      <!DOCTYPE html>
-      <html lang="${lang}">
-        <head>
-          <meta charset="${charset}" />
-          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-          ${mkStylesheetLinks stylesheets}
-          <title>${title}</title>
-        </head>
-      </html>
-      <body>
-        ${ccws.elements.mkHeader title}
-        <main>
-         <div class="link-grid">
-          ${lib.concatLines (map (c: ccws.elements.mkCard c) cards)}
-          </div>
-        </main>
-        ${ccws.elements.mkFooter}
-      </body>
-    '';
+    ccws.elements.mkPage {
+      title = title;
+      content = (lib.concatLines (map (c: ccws.elements.mkCard c) cards));
+    };
+
+  mkTagPage =
+    cards: tag:
+    ccws.elements.mkPage {
+      title = "CWS - ${tag}";
+      content = lib.concatLines (map (c: ccws.elements.mkCard c) (extractCards cards tag));
+    };
+
+  extractCards = cards: tag: (lib.filter (c: lib.elem tag c.tags) cards);
 
   mkStylesheetLinks =
     stylesheets: lib.concatLines (map (s: ''<style>${builtins.readFile s}</style>'') stylesheets);

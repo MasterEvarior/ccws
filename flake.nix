@@ -30,42 +30,7 @@
           shellHook = "";
         };
 
-        packages.default = pkgs.writeTextFile {
-          name = "index.html";
-          text = ccws.site.mkSite {
-            title = "CWS - Cool Coding Websites";
-            stylesheets = [ ./assets/style.css ];
-            cards = [
-              {
-                title = "jsdate.wtf";
-                link = "https://jsdate.wtf/";
-                description = "";
-                tags = [
-                  "test"
-                  "other"
-                ];
-              }
-              {
-                title = "e-mail.wtf";
-                link = "https://jsdate.wtf/";
-                description = "";
-                tags = [ ];
-              }
-              {
-                title = "jsdate.wtf";
-                link = "https://jsdate.wtf/";
-                description = "";
-                tags = [ ];
-              }
-              {
-                title = "jsdate.wtf";
-                link = "https://jsdate.wtf/";
-                description = "";
-                tags = [ ];
-              }
-            ];
-          };
-        };
+        packages.default = ccws.site.mkSite2;
       }
     );
 }
