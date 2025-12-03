@@ -17,6 +17,10 @@
       system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
+        ccws =
+          (import ./lib/default.nix {
+            inherit pkgs;
+          }).ccws;
       in
       {
         devShells.default = pkgs.mkShell {
@@ -28,17 +32,39 @@
 
         packages.default = pkgs.writeTextFile {
           name = "index.html";
-          text = ''
-            <!DOCTYPE html>
-            <html>
-              <head>
-                <title>bedroom community</title>
-              </head>
-              <body>
-                <h1>glass beach fan webring</h1>
-              </body>
-            </html>
-          '';
+          text = ccws.site.mkSite {
+            title = "CWS - Cool Coding Websites";
+            stylesheets = [ ./assets/style.css ];
+            cards = [
+              {
+                title = "jsdate.wtf";
+                link = "https://jsdate.wtf/";
+                description = "";
+                tags = [
+                  "test"
+                  "other"
+                ];
+              }
+              {
+                title = "e-mail.wtf";
+                link = "https://jsdate.wtf/";
+                description = "";
+                tags = [ ];
+              }
+              {
+                title = "jsdate.wtf";
+                link = "https://jsdate.wtf/";
+                description = "";
+                tags = [ ];
+              }
+              {
+                title = "jsdate.wtf";
+                link = "https://jsdate.wtf/";
+                description = "";
+                tags = [ ];
+              }
+            ];
+          };
         };
       }
     );
