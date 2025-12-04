@@ -5,21 +5,20 @@
   ...
 }:
 rec {
+  content = import ./../content.nix;
+  uniqueTags = extractAllUniqueTags content;
 
   mkSite2 = pkgs.linkFarm "website" [
     {
       name = "index.html";
-      path = pkgs.writeTextFile {
-        name = "index.html";
-        text = mkIndex {
-          title = "CWS - Cool Coding Websites";
-          cards = import ./../content.nix;
-        };
-      };
+      path = pkgs.writeText "index.html" (mkIndex {
+        title = "CWS - Cool Coding Websites";
+        cards = content;
+      });
     }
     {
-      name = "quiz.html";
-      path = pkgs.writeText "quiz.html" (mkTagPage (import ./../content.nix) "quiz");
+      name = "tags";
+      path = pkgs.linkFarm "tags" (mkTagPages content);
     }
   ];
 
@@ -31,16 +30,29 @@ rec {
     ccws.elements.mkPage {
       title = title;
       content = (lib.concatLines (map (c: ccws.elements.mkCard c) cards));
+      tags = uniqueTags;
     };
+
+  mkTagPages =
+    cards:
+    map (tag: {
+      name = "${tag}.html";
+      path = mkTagPage cards tag;
+    }) (extractAllUniqueTags cards);
 
   mkTagPage =
     cards: tag:
-    ccws.elements.mkPage {
-      title = "CWS - ${tag}";
-      content = lib.concatLines (map (c: ccws.elements.mkCard c) (extractCards cards tag));
-    };
+    pkgs.writeText "${tag}.html" (
+      ccws.elements.mkPage {
+        title = "CWS - ${tag}";
+        content = lib.concatLines (map (c: ccws.elements.mkCard c) (extractCardsForTag cards tag));
+        tags = uniqueTags;
+      }
+    );
 
-  extractCards = cards: tag: (lib.filter (c: lib.elem tag c.tags) cards);
+  extractAllUniqueTags = content: lib.unique (lib.concatMap (x: x.tags) content);
+
+  extractCardsForTag = cards: tag: (lib.filter (c: lib.elem tag c.tags) cards);
 
   mkStylesheetLinks =
     stylesheets: lib.concatLines (map (s: ''<style>${builtins.readFile s}</style>'') stylesheets);

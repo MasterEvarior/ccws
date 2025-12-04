@@ -7,6 +7,7 @@ rec {
       lang ? "en",
       charset ? "UTF-8",
       content ? "",
+      tags ? [ ],
     }:
     ''
       <!DOCTYPE html>
@@ -21,6 +22,7 @@ rec {
       <body>
         ${mkHeader title}
         <main>
+          ${mkTagBar tags}
          <div class="link-grid">
           ${content}
           </div>
@@ -54,6 +56,15 @@ rec {
     </header>
   '';
 
+  mkTagBar = tags: ''
+    ${lib.concatLines (
+      [
+        (mkTagLink' "all" "index.html")
+      ]
+      ++ (map (t: mkTagLink t) tags)
+    )}
+  '';
+
   mkFooter = ''
     <footer>
       <a href="https://github.com/MasterEvarior/ccws">Source available here</a>
@@ -80,6 +91,10 @@ rec {
            </div>
          </a>
     '';
+
+  mkTagLink = t: mkTagLink' t "${t}.html";
+
+  mkTagLink' = tag: link: ''<span class="tag"><a href="${link}">${lib.toLower tag}</a></span>'';
 
   mkTag = t: ''<span class="tag" href="tags/${t}.html">${lib.toLower t}</span>'';
 
