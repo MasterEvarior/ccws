@@ -17,16 +17,23 @@
       system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
-        inherit ((import ./src/lib/default.nix {
-            inherit pkgs;
-          })) ccws;
+        inherit (pkgs) lib;
+        inherit
+          (
+            (import ./src/lib/default.nix {
+              inherit pkgs;
+            })
+          )
+          ccws
+          ;
+        buildInputs = with pkgs; [
+          prettier
+          statix
+        ];
       in
       {
         devShells.default = pkgs.mkShell {
-          buildInputs = [
-            pkgs.prettier
-            pkgs.statix
-          ];
+          inherit buildInputs;
 
           shellHook = ''
             git config --local core.hooksPath .githooks/
@@ -34,6 +41,25 @@
         };
 
         packages.default = ccws.site.mkSite;
+
+        checks = {
+          lint = pkgs.stdenv.mkDerivation {
+
+            name = "lint";
+            src = ./.;
+            doCheck = true;
+
+            nativeBuildInputs = buildInputs;
+
+            checkPhase = ''
+              ${lib.getExe pkgs.statix} check
+            '';
+
+            installPhase = ''
+              mkdir "$out"
+            '';
+          };
+        };
       }
     );
 }

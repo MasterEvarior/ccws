@@ -1,0 +1,16 @@
+name: 'Quality Check'
+on:
+  push:
+  pull_request:
+    types: [opened, reopened, edited]
+  workflow_call:
+jobs:
+  formatting:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: DeterminateSystems/nix-installer-action@main
+        with:
+          nix-package: nixpkgs#nixFlakes
+      - name: Check formatting
+        run: nix build .#checks.x86_64-linux.lint
