@@ -1,3 +1,11 @@
+alias b := build
+alias l := lint
+alias u := update
+alias uc := update-commit
+
+default:
+  @just --list
+
 lint system="x86_64-linux":
     @echo "Linting..."
     nix build .#checks.{{system}}.lint
