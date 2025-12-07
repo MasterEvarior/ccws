@@ -25,6 +25,7 @@
       {
         devShells.default = pkgs.mkShell {
           buildInputs = [
+            pkgs.prettier
           ];
           shellHook = "";
         };
