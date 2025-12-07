@@ -17,17 +17,20 @@
       system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
-        ccws =
-          (import ./src/lib/default.nix {
+        inherit ((import ./src/lib/default.nix {
             inherit pkgs;
-          }).ccws;
+          })) ccws;
       in
       {
         devShells.default = pkgs.mkShell {
           buildInputs = [
             pkgs.prettier
+            pkgs.statix
           ];
-          shellHook = "";
+
+          shellHook = ''
+            git config --local core.hooksPath .githooks/
+          '';
         };
 
         packages.default = ccws.site.mkSite;

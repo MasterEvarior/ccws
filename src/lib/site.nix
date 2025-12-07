@@ -28,8 +28,8 @@ rec {
       cards ? [ ],
     }:
     ccws.elements.mkPage {
-      title = title;
-      content = (lib.concatLines (map (c: ccws.elements.mkCard c) cards));
+      inherit title;
+      content = lib.concatLines (map (c: ccws.elements.mkCard c) cards);
       tags = uniqueTags;
     };
 

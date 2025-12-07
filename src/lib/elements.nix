@@ -62,7 +62,7 @@ rec {
       [
         (mkTagLink' "all" "/index.html")
       ]
-      ++ (map (t: mkTagLink t) tags)
+      ++ (map mkTagLink tags)
     )}
     </div>
   '';
@@ -89,7 +89,7 @@ rec {
             ${description}
            </div>
            <div class="card-meta">
-             ${lib.concatLines (map (t: mkTag t) tags)}
+             ${lib.concatLines (map mkTag tags)}
            </div>
          </a>
     '';
