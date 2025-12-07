@@ -57,12 +57,14 @@ rec {
   '';
 
   mkTagBar = tags: ''
+    <div class="tag-bar">
     ${lib.concatLines (
       [
-        (mkTagLink' "all" "index.html")
+        (mkTagLink' "all" "/index.html")
       ]
       ++ (map (t: mkTagLink t) tags)
     )}
+    </div>
   '';
 
   mkFooter = ''
@@ -92,7 +94,7 @@ rec {
          </a>
     '';
 
-  mkTagLink = t: mkTagLink' t "${t}.html";
+  mkTagLink = t: mkTagLink' t "/tags/${t}.html";
 
   mkTagLink' = tag: link: ''<span class="tag"><a href="${link}">${lib.toLower tag}</a></span>'';
 

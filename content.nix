@@ -2,7 +2,7 @@
   {
     title = "jsdate.wtf";
     link = "https://jsdate.wtf/";
-    description = "";
+    description = "A quiz that makes you question everything about JavaScript dates.";
     tags = [
       "quiz"
       "javascript"
@@ -11,7 +11,7 @@
   {
     title = "e-mail.wtf";
     link = "https://e-mail.wtf.wtf/";
-    description = "";
+    description = "A quiz exploring things that you might not have known about emails.";
     tags = [
       "quiz"
       "email"
