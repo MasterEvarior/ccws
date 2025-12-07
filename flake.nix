@@ -29,6 +29,7 @@
         buildInputs = with pkgs; [
           prettier
           statix
+          just
         ];
       in
       {
@@ -44,9 +45,11 @@
 
         checks = {
           lint = pkgs.stdenv.mkDerivation {
-
             name = "lint";
             src = ./.;
+
+            dontBuild = true;
+
             doCheck = true;
 
             nativeBuildInputs = buildInputs;
