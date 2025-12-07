@@ -8,7 +8,7 @@ rec {
   content = import ./../content.nix;
   uniqueTags = extractAllUniqueTags content;
 
-  mkSite2 = pkgs.linkFarm "website" [
+  mkSite = pkgs.linkFarm "website" [
     {
       name = "index.html";
       path = pkgs.writeText "index.html" (mkIndex {
@@ -45,15 +45,11 @@ rec {
     pkgs.writeText "${tag}.html" (
       ccws.elements.mkPage {
         title = "CWS - ${tag}";
-        content = lib.concatLines (map (c: ccws.elements.mkCard c) (extractCardsForTag cards tag));
+        content = lib.concatLines (map (c: ccws.elements.mkCard c) (extractContentForTag cards tag));
         tags = uniqueTags;
       }
     );
 
   extractAllUniqueTags = content: lib.unique (lib.concatMap (x: x.tags) content);
-
-  extractCardsForTag = cards: tag: (lib.filter (c: lib.elem tag c.tags) cards);
-
-  mkStylesheetLinks =
-    stylesheets: lib.concatLines (map (s: ''<style>${builtins.readFile s}</style>'') stylesheets);
+  extractContentForTag = content: tag: (lib.filter (c: lib.elem tag c.tags) content);
 }

@@ -18,7 +18,7 @@
       let
         pkgs = nixpkgs.legacyPackages.${system};
         ccws =
-          (import ./lib/default.nix {
+          (import ./src/lib/default.nix {
             inherit pkgs;
           }).ccws;
       in
@@ -30,7 +30,7 @@
           shellHook = "";
         };
 
-        packages.default = ccws.site.mkSite2;
+        packages.default = ccws.site.mkSite;
       }
     );
 }
