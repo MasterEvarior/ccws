@@ -27,14 +27,16 @@
           ccws
           ;
         buildInputs = with pkgs; [
-          prettier
           statix
-          just
         ];
       in
       {
         devShells.default = pkgs.mkShell {
-          inherit buildInputs;
+          buildInputs = [
+            pkgs.just
+            pkgs.prettier
+          ]
+          ++ buildInputs;
 
           shellHook = ''
             git config --local core.hooksPath .githooks/
@@ -56,6 +58,7 @@
 
             checkPhase = ''
               ${lib.getExe pkgs.statix} check
+              ${lib.getExe pkgs.prettier} --check .
             '';
 
             installPhase = ''
