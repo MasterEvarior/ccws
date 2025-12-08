@@ -1,3 +1,2 @@
-prettier --write .
-treefmt
-nix build .#checks.x86_64-linux.lint
+just format
+just lint

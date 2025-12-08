@@ -10,6 +10,11 @@ lint system="x86_64-linux":
     @echo "Linting..."
     nix build .#checks.{{system}}.lint
 
+format:
+    prettier --write .
+    treefmt
+    statix fix .
+
 build:
     @echo "Building the application..."
     nix build
