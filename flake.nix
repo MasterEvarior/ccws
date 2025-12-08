@@ -16,6 +16,7 @@
     flake-utils.lib.eachDefaultSystem (
       system:
       let
+        utils = flake-utils;
         pkgs = nixpkgs.legacyPackages.${system};
         inherit (pkgs) lib;
         inherit
@@ -41,7 +42,24 @@
           '';
         };
 
-        packages.default = ccws.site.mkSite;
+        packages = {
+          default = ccws.site.mkSite;
+        };
+
+        apps = {
+          default = utils.lib.mkApp {
+            drv =
+              let
+                python = pkgs.python3.withPackages (ps: [
+                  ps.watchdog
+                ]);
+
+              in
+              pkgs.writeShellScriptBin "app" ''
+                ${lib.getExe python} ${./app.py}
+              '';
+          };
+        };
 
         checks = {
           lint = pkgs.stdenv.mkDerivation {

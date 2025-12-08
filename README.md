@@ -41,7 +41,17 @@ nix build
 
 After building, you can open `result/index.html` in your browser to view the site.
 
-### 3. Development Commands
+### 3. Run locally
+
+You can run the project locally with a small Python script and automatic change detection.
+
+```bash
+just run
+# OR
+nix run
+```
+
+### 4. Development Commands
 
 This project uses `just` as a command runner. Run `just` to see all available command.
 
@@ -67,3 +77,10 @@ To add a new website, add a new attribute set in `src/content.nix`
 - Templating: Nix String Interpolation (`src/lib/elements.nix`)
 - Styling: CSS (src/style.css)
 - CI/CD: GitHub Actions (configured in `.github/workflows/quality.yaml`)
+
+## Credits
+
+Credit where credit is due.
+
+- [Emi for this great article](https://garnix.dev/posts/using_nix_as_a_static_site_generator)
+- [Patryk Wychowaniec for his great example and `app.py` that I stole](https://codeberg.org/pwy/website/src/branch/main)

@@ -28,3 +28,7 @@ update-commit: update
     git reset
     git add flake.nix flake.lock
     git commit -m "chore(deps): update flake.nix"
+
+run:
+    @echo "Running local Python webserver..."
+    nix run
