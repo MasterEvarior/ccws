@@ -8,6 +8,7 @@ rec {
       charset ? "UTF-8",
       content ? "",
       tags ? [ ],
+      pathToRoot ? ".",
     }:
     ''
       <!DOCTYPE html>
@@ -22,7 +23,7 @@ rec {
       <body>
         ${mkHeader title}
         <main>
-          ${mkTagBar tags}
+          ${mkTagBar tags pathToRoot}
          <div class="link-grid">
           ${content}
           </div>
@@ -56,13 +57,13 @@ rec {
     </header>
   '';
 
-  mkTagBar = tags: ''
+  mkTagBar = tags: rootPath: ''
     <div class="tag-bar">
     ${lib.concatLines (
       [
         (mkTagLink' "all" "../index.html")
       ]
-      ++ (map mkTagLink tags)
+      ++ (map (t: mkTagLink t rootPath) tags)
     )}
     </div>
   '';
@@ -94,7 +95,7 @@ rec {
          </a>
     '';
 
-  mkTagLink = t: mkTagLink' t "../tags/${t}.html";
+  mkTagLink = t: p: mkTagLink' t "${p}/tags/${t}.html";
 
   mkTagLink' = tag: link: ''<span class="tag"><a href="${link}">${lib.toLower tag}</a></span>'';
 

@@ -31,6 +31,7 @@ rec {
       inherit title;
       content = lib.concatLines (map (c: ccws.elements.mkCard c) cards);
       tags = uniqueTags;
+      pathToRoot = ".";
     };
 
   mkTagPages =
@@ -47,6 +48,7 @@ rec {
         title = "CWS - ${tag}";
         content = lib.concatLines (map (c: ccws.elements.mkCard c) (extractContentForTag cards tag));
         tags = uniqueTags;
+        pathToRoot = "..";
       }
     );
 
