@@ -10,7 +10,7 @@
   }
   {
     title = "e-mail.wtf";
-    link = "https://e-mail.wtf.wtf/";
+    link = "https://e-mail.wtf/";
     description = "A quiz exploring things that you might not have known about emails.";
     tags = [
       "quiz"
