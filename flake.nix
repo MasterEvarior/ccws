@@ -26,9 +26,6 @@
           )
           ccws
           ;
-        buildInputs = with pkgs; [
-          statix
-        ];
       in
       {
         devShells.default = pkgs.mkShell {
@@ -36,8 +33,8 @@
             pkgs.just
             pkgs.prettier
             pkgs.nixfmt-tree
-          ]
-          ++ buildInputs;
+            pkgs.statix
+          ];
 
           shellHook = ''
             git config --local core.hooksPath .githooks/
@@ -54,8 +51,6 @@
             dontBuild = true;
 
             doCheck = true;
-
-            nativeBuildInputs = buildInputs;
 
             checkPhase = ''
               ${lib.getExe pkgs.statix} check
