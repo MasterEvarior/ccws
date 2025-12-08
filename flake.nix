@@ -35,6 +35,7 @@
           buildInputs = [
             pkgs.just
             pkgs.prettier
+            pkgs.nixfmt-tree
           ]
           ++ buildInputs;
 
@@ -59,6 +60,7 @@
             checkPhase = ''
               ${lib.getExe pkgs.statix} check
               ${lib.getExe pkgs.prettier} --check .
+              ${lib.getExe pkgs.nixfmt-tree} --ci
             '';
 
             installPhase = ''
