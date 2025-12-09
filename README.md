@@ -53,7 +53,7 @@ nix run
 
 ### 4. Development Commands
 
-This project uses `just` as a command runner. Run `just` to see all available command.
+This project uses `just` as a command runner. Run `just` to see all available commands.
 
 ## How to Add a Website
 
