@@ -64,6 +64,15 @@
     ];
   }
   {
+    title = "C++ Auto Type Deduction Gauntlet";
+    link = "https://www.volatileint.dev/posts/auto-type-deduction-gauntlet/";
+    description = "Can You Survive the C++ Auto Type Deduction Gauntlet?";
+    tags = [
+      "website"
+      "c++"
+    ];
+  }
+  {
     title = "CMD Challenge";
     link = "https://cmdchallenge.com/";
     description = "A series of tasks testing your ability to solve problems using obscure shell commands.";
