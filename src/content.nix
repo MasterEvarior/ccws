@@ -192,4 +192,13 @@
       "satire"
     ];
   }
+  {
+    title = "Unfair Rust Quiz";
+    link = "https://this.quiz.is.fckn.gay";
+    description = "This is the unfair Rust quiz, a collection of extremely hard and sometimes even unfair questions about Rust, made by the gayest people you know.";
+    tags = [
+      "quiz"
+      "rust"
+    ];
+  }
 ]
