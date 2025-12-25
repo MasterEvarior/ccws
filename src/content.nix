@@ -201,4 +201,13 @@
       "rust"
     ];
   }
+  {
+    title = "Logging sucks";
+    link = "https://loggingsucks.com/";
+    description = "Logging sucks. And here's how to make it better.";
+    tags = [
+      "website"
+      "logging"
+    ];
+  }
 ]
