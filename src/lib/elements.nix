@@ -102,5 +102,5 @@ rec {
   mkTag = t: ''<span class="tag" href="tags/${t}.html">${lib.toLower t}</span>'';
 
   mkStylesheetLinks =
-    stylesheets: lib.concatLines (map (s: ''<style>${builtins.readFile s}</style>'') stylesheets);
+    stylesheets: lib.concatLines (map (s: "<style>${builtins.readFile s}</style>") stylesheets);
 }
