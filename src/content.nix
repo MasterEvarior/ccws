@@ -210,4 +210,13 @@
       "logging"
     ];
   }
+  {
+    title = "java.evolved";
+    link = "https://javaevolved.github.io/";
+    description = "Every old Java pattern next to its clean, modern replacement - side by side.";
+    tags = [
+      "website"
+      "java"
+    ];
+  }
 ]
