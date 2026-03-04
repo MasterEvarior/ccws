@@ -219,4 +219,13 @@
       "java"
     ];
   }
+  {
+    title = "MicroGPT explained interactively";
+    link = "https://growingswe.com/blog/microgpt";
+    description = "Trying my best to visualize it. I'm a n00b at machine learning though";
+    tags = [
+      "website"
+      "llm"
+    ];
+  }
 ]
