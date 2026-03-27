@@ -237,4 +237,13 @@
       "database"
     ];
   }
+  {
+    title = "The Grug Brained Developer";
+    link = "https://grugbrain.dev/";
+    description = "A layman's guide to thinking like the self-aware smol brained";
+    tags = [
+      "website"
+      "guide"
+    ];
+  }
 ]
