@@ -228,4 +228,13 @@
       "llm"
     ];
   }
+  {
+    title = "The Internals of PostgreSQL";
+    link = "https://www.interdb.jp/pg/index.html";
+    description = "Explanation of the internal workings of PostgreSQL";
+    tags = [
+      "website"
+      "database"
+    ];
+  }
 ]
