@@ -12,7 +12,7 @@ rec {
     {
       name = "index.html";
       path = pkgs.writeText "index.html" (mkIndex {
-        title = "CWS - Cool Coding Websites";
+        title = "CCWS - Cool Coding Websites";
         cards = content;
       });
     }
