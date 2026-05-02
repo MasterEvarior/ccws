@@ -246,4 +246,13 @@
       "guide"
     ];
   }
+  {
+    title = "Crafting Interpreters";
+    link = "https://craftinginterpreters.com/";
+    description = "Ever wanted to make your own programming language or wondered how they are designed and built?";
+    tags = [
+      "website"
+      "language-creation"
+    ];
+  }
 ]
